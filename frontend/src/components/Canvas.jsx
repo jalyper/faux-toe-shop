@@ -102,7 +102,10 @@ const Canvas = forwardRef(({
       saveState();
     },
     updateLayers: (updatedLayers) => {
-      // Layer management logic
+      updateObjectsVisibility();
+    },
+    deleteLayer: (layerId) => {
+      removeLayerObjects(layerId);
     }
   }));
 
