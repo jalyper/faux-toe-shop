@@ -197,6 +197,7 @@ const PhotoshopEditor = () => {
             activeTool={activeTool}
             brushSize={brushSize}
             brushOpacity={brushOpacity}
+            pressureSensitivity={pressureSensitivity}
             color={color}
             zoom={zoom}
             backgroundColor={backgroundColor}
