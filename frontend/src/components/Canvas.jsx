@@ -413,7 +413,7 @@ const Canvas = forwardRef(({
         updateObjectsSelectability();
         break;
     }
-  }, [activeTool, brushSize, brushOpacity, color]);
+  }, [activeTool, brushSize, brushOpacity, color, pressureSensitivity]);
 
   // Zoom is now handled by CSS transform in the container, not by Fabric.js
   // This keeps the canvas size and object sizes constant
