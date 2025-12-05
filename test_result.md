@@ -177,8 +177,10 @@ metadata:
   test_sequence: 2
 
 test_plan:
-  current_focus: []
-  stuck_tasks: []
+  current_focus: 
+    - "Background Color Functionality - Cancel Button Behavior"
+  stuck_tasks: 
+    - "Background Color Functionality - Cancel Button Behavior"
   test_all: false
   test_priority: "high_first"
 
