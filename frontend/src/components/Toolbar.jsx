@@ -39,17 +39,34 @@ const Toolbar = ({ activeTool, setActiveTool, brushSize, setBrushSize, brushOpac
       ))}
       
       {(activeTool === 'brush' || activeTool === 'pencil' || activeTool === 'eraser') && (
-        <div className="mt-4 px-2 w-full">
-          <Label className="text-xs text-gray-400">Size</Label>
-          <Slider
-            value={[brushSize]}
-            onValueChange={([value]) => setBrushSize(value)}
-            min={1}
-            max={50}
-            step={1}
-            className="mt-2"
-          />
-          <span className="text-xs text-gray-400 mt-1 block text-center">{brushSize}px</span>
+        <div className="mt-4 px-2 w-full space-y-4">
+          <div>
+            <Label className="text-xs text-gray-400">Size</Label>
+            <Slider
+              value={[brushSize]}
+              onValueChange={([value]) => setBrushSize(value)}
+              min={1}
+              max={50}
+              step={1}
+              className="mt-2"
+              data-testid="brush-size-slider"
+            />
+            <span className="text-xs text-gray-400 mt-1 block text-center">{brushSize}px</span>
+          </div>
+          
+          <div>
+            <Label className="text-xs text-gray-400">Opacity</Label>
+            <Slider
+              value={[brushOpacity]}
+              onValueChange={([value]) => setBrushOpacity(value)}
+              min={0}
+              max={100}
+              step={1}
+              className="mt-2"
+              data-testid="brush-opacity-slider"
+            />
+            <span className="text-xs text-gray-400 mt-1 block text-center">{brushOpacity}%</span>
+          </div>
         </div>
       )}
     </div>
