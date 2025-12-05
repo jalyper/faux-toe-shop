@@ -14,9 +14,11 @@ import {
   AlertDialogTitle,
 } from './ui/alert-dialog';
 
-const LayersPanel = ({ layers, activeLayerId, setActiveLayerId, onLayersUpdate, onLayerAdd }) => {
+const LayersPanel = ({ layers, activeLayerId, setActiveLayerId, onLayersUpdate, onLayerAdd, backgroundColor, onBackgroundColorChange }) => {
   const [normalizeDialogOpen, setNormalizeDialogOpen] = useState(false);
   const [layerToNormalize, setLayerToNormalize] = useState(null);
+  const [colorPickerOpen, setColorPickerOpen] = useState(false);
+  const [tempBackgroundColor, setTempBackgroundColor] = useState(backgroundColor || '#ffffff');
   const toggleLayerVisibility = (layerId) => {
     const updatedLayers = layers.map(layer =>
       layer.id === layerId ? { ...layer, visible: !layer.visible } : layer
