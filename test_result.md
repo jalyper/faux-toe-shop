@@ -182,8 +182,46 @@ test_plan:
   test_all: false
   test_priority: "high_first"
 
+  - task: "Background Layer Functionality - Default Layer Creation"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/PhotoshopEditor.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ Background layer functionality working perfectly. App opens with default Background layer named 'Background' with proper data-testid attributes. Layer is visible in layers panel with correct name, visibility icon, and lock icon. No delete button present as expected for background layer."
+
+  - task: "Background Layer Functionality - Normalize Dialog"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/LayersPanel.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ Normalize dialog functionality working perfectly. Double-clicking Background layer shows normalize dialog with correct title 'Normalize layer?' and proper Yes/No buttons. Dialog can be closed with 'No' button and layer remains as 'Background'. All data-testid selectors working correctly."
+
+  - task: "Background Layer Functionality - Layer Normalization"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/LayersPanel.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ Layer normalization functionality working perfectly. Clicking 'Yes' in normalize dialog successfully converts Background layer to 'Layer 0' and removes isBackground flag. Delete button appears after normalization as expected. Normalized layer can be deleted successfully, showing 'No layers yet' message."
+
 agent_communication:
     - agent: "testing"
       message: "Completed comprehensive integration testing of Photoshop clone application. Core functionality is working well - application loads, canvas drawing works perfectly with pencil tool, and toolbar selection works. Main issues are with layer management testing - layer creation appears to work but text detection fails, and layer deletion buttons cannot be located properly. These seem to be test selector issues rather than functionality problems. The drawing functionality is the most critical feature and it works flawlessly."
     - agent: "testing"
       message: "✅ RE-TESTING COMPLETED SUCCESSFULLY with improved data-testid selectors! All three comprehensive test suites passed: 1) Add New Layer - Perfect functionality with proper state transitions, 2) Pencil Drawing - Canvas drawing works flawlessly with visual confirmation, 3) Layer Management & Deletion - Full layer lifecycle tested successfully. Previous issues were indeed selector-related, not functionality issues. The Photoshop clone application is fully functional with robust layer management, drawing tools, and UI interactions. All data-testid attributes are properly implemented and working."
+    - agent: "testing"
+      message: "🎉 BACKGROUND LAYER INTEGRATION TESTS COMPLETED SUCCESSFULLY! All 5 comprehensive test scenarios passed: 1) App opens with default Background layer ✅, 2) Background layer cannot be deleted (no delete button) ✅, 3) Double-clicking shows normalize prompt with Yes/No options ✅, 4) Normalizing converts Background to Layer 0 with delete button ✅, 5) Normalized layer can be deleted successfully ✅. The Background layer functionality is fully implemented and working perfectly with proper data-testid attributes, normalize dialog, and layer state management."
