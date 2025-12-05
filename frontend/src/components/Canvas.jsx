@@ -2,6 +2,7 @@ import React, { useEffect, useRef, forwardRef, useImperativeHandle } from 'react
 import { Canvas as FabricCanvas, Circle, Rect, IText, Image as FabricImage, PencilBrush } from 'fabric';
 import { filters } from 'fabric';
 import { EraserBrush } from '@erase2d/fabric';
+import PressureSensitiveBrush from './PressureSensitiveBrush';
 
 const Canvas = forwardRef(({
   activeTool,
