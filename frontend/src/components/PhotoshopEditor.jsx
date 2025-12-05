@@ -9,11 +9,22 @@ import MenuBar from './MenuBar';
 import { toast } from '../hooks/use-toast';
 
 const PhotoshopEditor = () => {
+  // Initialize with Background layer
+  const backgroundLayer = {
+    id: 'background',
+    name: 'Background',
+    type: 'background',
+    visible: true,
+    opacity: 100,
+    locked: false,
+    isBackground: true
+  };
+  
   const [activeTool, setActiveTool] = useState('select');
   const [brushSize, setBrushSize] = useState(5);
   const [color, setColor] = useState('#000000');
-  const [layers, setLayers] = useState([]);
-  const [activeLayerId, setActiveLayerId] = useState(null);
+  const [layers, setLayers] = useState([backgroundLayer]);
+  const [activeLayerId, setActiveLayerId] = useState('background');
   const [history, setHistory] = useState([]);
   const [historyStep, setHistoryStep] = useState(-1);
   const [zoom, setZoom] = useState(100);
