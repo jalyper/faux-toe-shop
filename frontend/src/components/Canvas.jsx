@@ -153,7 +153,7 @@ const Canvas = forwardRef(({
         break;
       case 'pencil':
         canvas.isDrawingMode = true;
-        canvas.freeDrawingBrush = new fabric.PencilBrush(canvas);
+        canvas.freeDrawingBrush = new PencilBrush(canvas);
         canvas.freeDrawingBrush.color = color;
         canvas.freeDrawingBrush.width = brushSize;
         break;
