@@ -221,14 +221,14 @@ const Canvas = forwardRef(({
       case 'brush':
         canvas.isDrawingMode = true;
         if (canvas.freeDrawingBrush) {
-          canvas.freeDrawingBrush.color = color;
+          canvas.freeDrawingBrush.color = hexToRgba(color, brushOpacity);
           canvas.freeDrawingBrush.width = brushSize;
         }
         break;
       case 'pencil':
         canvas.isDrawingMode = true;
         canvas.freeDrawingBrush = new PencilBrush(canvas);
-        canvas.freeDrawingBrush.color = color;
+        canvas.freeDrawingBrush.color = hexToRgba(color, brushOpacity);
         canvas.freeDrawingBrush.width = brushSize;
         break;
       case 'eraser':
