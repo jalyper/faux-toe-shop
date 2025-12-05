@@ -17,7 +17,7 @@ const Toolbar = ({ activeTool, setActiveTool, brushSize, setBrushSize }) => {
   ];
 
   return (
-    <div className="w-16 bg-[#262626] border-r border-[#3e3e3e] flex flex-col items-center py-4 gap-2">
+    <div className="w-16 bg-[#262626] border-r border-[#3e3e3e] flex flex-col items-center py-4 gap-2" data-testid="toolbar">
       {tools.map((tool, index) => (
         <React.Fragment key={tool.id}>
           <button
@@ -28,6 +28,8 @@ const Toolbar = ({ activeTool, setActiveTool, brushSize, setBrushSize }) => {
                 : 'hover:bg-[#3e3e3e] text-gray-300'
             }`}
             title={tool.label}
+            data-testid={`tool-${tool.id}`}
+            aria-label={tool.label}
           >
             <tool.icon size={20} />
           </button>
