@@ -139,7 +139,7 @@ const Canvas = forwardRef(({
     }
   };
 
-  // Update visibility of all objects based on active layers
+  // Update visibility and opacity of all objects based on active layers
   const updateObjectsVisibility = () => {
     if (!fabricCanvasRef.current) return;
     
@@ -148,7 +148,13 @@ const Canvas = forwardRef(({
     
     canvas.getObjects().forEach(obj => {
       if (obj.layerId) {
+        const layer = layers.find(l => l.id === obj.layerId);
         obj.visible = visibleLayers.includes(obj.layerId);
+        
+        // Apply layer opacity
+        if (layer && layer.opacity !== undefined) {
+          obj.opacity = layer.opacity / 100;
+        }
       }
     });
     
