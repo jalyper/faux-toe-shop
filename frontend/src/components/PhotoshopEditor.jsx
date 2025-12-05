@@ -117,7 +117,13 @@ const PhotoshopEditor = () => {
       type,
       visible: true,
       opacity: 100,
-      locked: false
+      locked: false,
+      adjustments: {
+        brightness: 0,
+        contrast: 0,
+        saturation: 0,
+        blur: 0
+      }
     };
     const updatedLayers = [...layers, newLayer];
     setLayers(updatedLayers);
