@@ -377,6 +377,18 @@ test_plan:
           agent: "testing"
           comment: "🎉 COMPREHENSIVE LAYER ISOLATION WITH DRAWING TOOLS TESTS COMPLETED SUCCESSFULLY! All 5 critical test scenarios passed: ✅ TEST 1: Brush only draws on active layer - Successfully normalized Background to Layer 0, drew horizontal line with brush, added Layer 1, drew vertical line, switched back to Layer 0 and drew diagonal - all lines properly isolated to their respective layers. ✅ TEST 2: Pencil only draws on active layer - Drew square pattern on Layer 0, added Layer 1 with circle pattern, switched back to Layer 0 and added X pattern - Layer 1 circle remained unchanged, perfect isolation. ✅ TEST 3: Eraser ONLY affects active layer (CRITICAL) - Drew horizontal lines on both Layer 0 and Layer 1, used eraser on Layer 1 (active) over Layer 0 line area (did NOT erase), then erased Layer 1 line (successfully erased), switched to Layer 0 and erased Layer 0 line - eraser respects active layer perfectly. ✅ TEST 4: Multi-layer drawing and selective erasing - Created 3 layers with different patterns (horizontal, vertical, diagonal), selected middle Layer 1 and erased its content while preserving Layer 0 and Layer 2 content. ✅ TEST 5: Drawing tools never affect other layers - Tested brush, pencil, and eraser on multiple layers, confirmed complete isolation. Layer isolation functionality is working flawlessly with proper canvas object tagging by layerId and selective tool behavior."
 
+  - task: "Eraser Tool - Layer Isolation Re-Testing"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/Canvas.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "🎉 ERASER TOOL RE-TEST WITH LAYER ISOLATION COMPLETED SUCCESSFULLY! Comprehensive re-testing performed as requested: ✅ TEST 1: Eraser tool stays active - eraser button maintains blue highlight (bg-[#0d7bdc]) throughout usage, never reverts to selection tool, ✅ TEST 2: Eraser removes objects on active layer - successfully drew 3 horizontal lines and erased middle line while preserving other lines, ✅ TEST 3: Eraser does NOT affect other layers (CRITICAL) - created Layer 0 with line and Layer 1 with second line, eraser on Layer 1 did NOT remove Layer 0 content, only affected objects on active layer, perfect layer isolation, ✅ TEST 4: Eraser works with multiple strokes - drew complex square pattern and successfully erased parts in multiple passes, consistent functionality. All 4 test scenarios passed perfectly. The eraser tool with layer isolation is working flawlessly - this is a critical feature for professional image editing and it's implemented correctly with proper Fabric.js integration and layerId tagging."
+
 agent_communication:
     - agent: "testing"
       message: "Completed comprehensive integration testing of Photoshop clone application. Core functionality is working well - application loads, canvas drawing works perfectly with pencil tool, and toolbar selection works. Main issues are with layer management testing - layer creation appears to work but text detection fails, and layer deletion buttons cannot be located properly. These seem to be test selector issues rather than functionality problems. The drawing functionality is the most critical feature and it works flawlessly."
