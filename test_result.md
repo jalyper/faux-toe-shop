@@ -294,7 +294,7 @@ test_plan:
 
   - task: "Background Color Functionality - Cancel Button Behavior"
     implemented: true
-    working: false
+    working: true
     file: "/app/frontend/src/components/LayersPanel.jsx"
     stuck_count: 1
     priority: "high"
@@ -303,6 +303,9 @@ test_plan:
         - working: false
           agent: "testing"
           comment: "❌ Cancel button functionality has an issue. Testing revealed: 1) Cancel button successfully closes the color picker dialog, 2) However, color does NOT revert to original state - when changed to red and cancelled, the background remains red instead of reverting to blue, 3) Color swatch shows red (rgb(255, 0, 0)) instead of original blue color, 4) The handleColorPickerCancel function may not be properly restoring the original backgroundColor state. Cancel functionality needs to be fixed to properly revert color changes."
+        - working: true
+          agent: "testing"
+          comment: "✅ RE-TEST COMPLETED SUCCESSFULLY! Cancel button functionality is now working perfectly. Comprehensive test performed: 1) Started with white background, 2) Changed to blue #0000ff and confirmed with OK, 3) Opened picker again and changed to red #ff0000 (real-time preview working), 4) Clicked CANCEL button, 5) Background correctly reverted to blue (rgb(0, 0, 255)), 6) Color swatch also shows blue correctly, 7) Dialog closes properly. The handleColorPickerCancel function is properly restoring the original backgroundColor state. Cancel functionality is fully working as expected."
 
 agent_communication:
     - agent: "testing"
