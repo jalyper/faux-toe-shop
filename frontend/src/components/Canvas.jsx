@@ -392,6 +392,9 @@ const Canvas = forwardRef(({
   useEffect(() => {
     currentLayerIdRef.current = activeLayerId;
     
+    // Update selectability when switching layers
+    updateObjectsSelectability();
+    
     // Update erasable property when switching layers
     if (fabricCanvasRef.current && activeTool === 'eraser') {
       fabricCanvasRef.current.getObjects().forEach(obj => {
