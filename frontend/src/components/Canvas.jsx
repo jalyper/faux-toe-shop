@@ -276,12 +276,17 @@ const Canvas = forwardRef(({
         break;
       case 'eraser':
         canvas.isDrawingMode = true;
-        canvas.freeDrawingBrush = new PencilBrush(canvas);
-        // Use a special color/marker for eraser strokes
-        canvas.freeDrawingBrush.color = 'rgba(255, 0, 0, 0.01)'; // Nearly invisible red
+        canvas.freeDrawingBrush = new EraserBrush(canvas);
         canvas.freeDrawingBrush.width = brushSize;
-        // Mark eraser strokes with a special property
-        canvas.freeDrawingBrush._isEraser = true;
+        
+        // Make only objects on current layer erasable
+        canvas.getObjects().forEach(obj => {
+          if (obj.layerId === currentLayerIdRef.current) {
+            obj.erasable = true;
+          } else {
+            obj.erasable = false;
+          }
+        });
         break;
       case 'text':
         canvas.isDrawingMode = false;
