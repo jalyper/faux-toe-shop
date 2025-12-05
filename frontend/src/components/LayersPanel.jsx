@@ -71,10 +71,14 @@ const LayersPanel = ({ layers, activeLayerId, setActiveLayerId, onLayersUpdate, 
     }
   };
 
+  const [originalBackgroundColor, setOriginalBackgroundColor] = useState(null);
+
   const handleColorSwatchClick = (e, layer) => {
     if (layer.isBackground) {
       e.stopPropagation();
-      setTempBackgroundColor(backgroundColor || '#ffffff');
+      const currentColor = backgroundColor || '#ffffff';
+      setOriginalBackgroundColor(currentColor); // Store original for cancel
+      setTempBackgroundColor(currentColor);
       setColorPickerOpen(true);
     }
   };
