@@ -103,9 +103,15 @@ const LayersPanel = ({ layers, activeLayerId, setActiveLayerId, onLayersUpdate, 
                   : 'bg-[#3e3e3e] hover:bg-[#4e4e4e]'
               }`}
               onClick={() => setActiveLayerId(layer.id)}
+              onDoubleClick={() => handleLayerDoubleClick(layer)}
             >
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium" data-testid={`layer-name-${layer.id}`}>{layer.name}</span>
+                <span 
+                  className="text-sm font-medium" 
+                  data-testid={`layer-name-${layer.id}`}
+                >
+                  {layer.name}
+                </span>
                 <div className="flex items-center gap-2">
                   <button
                     onClick={(e) => {
@@ -129,17 +135,19 @@ const LayersPanel = ({ layers, activeLayerId, setActiveLayerId, onLayersUpdate, 
                   >
                     {layer.locked ? <Lock size={14} /> : <Unlock size={14} />}
                   </button>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      deleteLayer(layer.id);
-                    }}
-                    className="hover:text-red-400 transition-colors"
-                    data-testid={`layer-delete-${layer.id}`}
-                    aria-label={`Delete ${layer.name}`}
-                  >
-                    <Trash2 size={14} />
-                  </button>
+                  {!layer.isBackground && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        deleteLayer(layer.id);
+                      }}
+                      className="hover:text-red-400 transition-colors"
+                      data-testid={`layer-delete-${layer.id}`}
+                      aria-label={`Delete ${layer.name}`}
+                    >
+                      <Trash2 size={14} />
+                    </button>
+                  )}
                 </div>
               </div>
               
