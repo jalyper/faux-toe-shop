@@ -68,6 +68,24 @@ const Toolbar = ({ activeTool, setActiveTool, brushSize, setBrushSize, brushOpac
             />
             <span className="text-xs text-gray-400 mt-1 block text-center">{brushOpacity}%</span>
           </div>
+          
+          <Separator className="w-10 bg-[#3e3e3e]" />
+          
+          <div className="flex items-center gap-2 px-1">
+            <Checkbox
+              id="pressure-sensitivity"
+              checked={pressureSensitivity}
+              onCheckedChange={setPressureSensitivity}
+              data-testid="pressure-sensitivity-checkbox"
+              className="border-gray-400"
+            />
+            <Label 
+              htmlFor="pressure-sensitivity" 
+              className="text-xs text-gray-400 leading-tight cursor-pointer"
+            >
+              Enable pressure sensitivity
+            </Label>
+          </div>
         </div>
       )}
     </div>
