@@ -196,6 +196,8 @@ const Canvas = forwardRef(({
     canvas.on('object:added', (e) => {
       if (e.target) {
         tagObjectWithLayer(e.target);
+        // Make objects erasable by default
+        e.target.erasable = true;
       }
       saveState();
     });
