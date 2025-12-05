@@ -393,7 +393,15 @@ const Canvas = forwardRef(({
 
   return (
     <div className="flex-1 flex items-center justify-center overflow-auto p-4" data-testid="canvas-container">
-      <canvas ref={canvasRef} className="shadow-lg" data-testid="main-canvas" />
+      <div 
+        style={{ 
+          transform: `scale(${zoom / 100})`,
+          transformOrigin: 'center center',
+          transition: 'transform 0.2s ease-out'
+        }}
+      >
+        <canvas ref={canvasRef} className="shadow-lg" data-testid="main-canvas" />
+      </div>
     </div>
   );
 });
