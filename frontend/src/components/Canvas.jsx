@@ -260,14 +260,9 @@ const Canvas = forwardRef(({
         break;
       case 'eraser':
         canvas.isDrawingMode = true;
-        // Check if EraserBrush exists in fabric, otherwise use PencilBrush with eraser mode
-        if (window.fabric && window.fabric.EraserBrush) {
-          canvas.freeDrawingBrush = new window.fabric.EraserBrush(canvas);
-        } else {
-          canvas.freeDrawingBrush = new PencilBrush(canvas);
-          canvas.freeDrawingBrush._isEraser = true;
-        }
-        canvas.freeDrawingBrush.width = brushSize;
+        const eraserBrush = new EraserBrush(canvas);
+        eraserBrush.width = brushSize;
+        canvas.freeDrawingBrush = eraserBrush;
         
         // Make only objects on current layer erasable
         canvas.getObjects().forEach(obj => {
