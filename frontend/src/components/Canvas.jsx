@@ -187,7 +187,7 @@ const Canvas = forwardRef(({
             const pointer = canvas.getPointer(o.e);
             origX = pointer.x;
             origY = pointer.y;
-            rect = new fabric.Rect({
+            rect = new Rect({
               left: origX,
               top: origY,
               fill: color,
