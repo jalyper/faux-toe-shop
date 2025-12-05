@@ -118,6 +118,13 @@ const PhotoshopEditor = () => {
     addToHistory(`Added ${type} layer`);
   };
 
+  const handleBackgroundColorChange = (newColor) => {
+    setBackgroundColor(newColor);
+    if (canvasRef.current) {
+      canvasRef.current.setBackgroundColor(newColor);
+    }
+  };
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
