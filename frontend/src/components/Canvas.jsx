@@ -225,7 +225,7 @@ const Canvas = forwardRef(({
             const pointer = canvas.getPointer(o.e);
             origXCircle = pointer.x;
             origYCircle = pointer.y;
-            circle = new fabric.Circle({
+            circle = new Circle({
               left: origXCircle,
               top: origYCircle,
               fill: color,
