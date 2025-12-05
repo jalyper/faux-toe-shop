@@ -17,7 +17,13 @@ const PhotoshopEditor = () => {
     visible: true,
     opacity: 100,
     locked: false,
-    isBackground: true
+    isBackground: true,
+    adjustments: {
+      brightness: 0,
+      contrast: 0,
+      saturation: 0,
+      blur: 0
+    }
   };
   
   const [activeTool, setActiveTool] = useState('select');
