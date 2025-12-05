@@ -380,8 +380,13 @@ const Canvas = forwardRef(({
           onHistoryAdd('Circle Added');
         });
         break;
+      case 'select':
+      case 'move':
       default:
         canvas.isDrawingMode = false;
+        // Update selectability when switching to select/move tool
+        updateObjectsSelectability();
+        break;
     }
   }, [activeTool, brushSize, brushOpacity, color]);
 
