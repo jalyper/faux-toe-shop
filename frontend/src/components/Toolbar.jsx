@@ -4,7 +4,7 @@ import { Separator } from './ui/separator';
 import { Slider } from './ui/slider';
 import { Label } from './ui/label';
 
-const Toolbar = ({ activeTool, setActiveTool, brushSize, setBrushSize }) => {
+const Toolbar = ({ activeTool, setActiveTool, brushSize, setBrushSize, brushOpacity, setBrushOpacity }) => {
   const tools = [
     { id: 'select', icon: MousePointer, label: 'Select' },
     { id: 'move', icon: Move, label: 'Move' },
