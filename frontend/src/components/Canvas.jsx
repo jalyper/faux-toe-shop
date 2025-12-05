@@ -204,8 +204,13 @@ const Canvas = forwardRef(({
 
     canvas.on('path:created', (e) => {
       if (e.path) {
-        // Tag path with layer ID for all drawing tools (not eraser)
-        if (!(canvas.freeDrawingBrush instanceof EraserBrush)) {
+        // Check if it's an eraser brush
+        const isEraser = canvas.freeDrawingBrush && 
+                        (canvas.freeDrawingBrush._isEraser || 
+                         (window.fabric && window.fabric.EraserBrush && 
+                          canvas.freeDrawingBrush instanceof window.fabric.EraserBrush));
+        
+        if (!isEraser) {
           tagObjectWithLayer(e.path);
           // Make newly created objects erasable by default
           e.path.erasable = true;
@@ -213,11 +218,13 @@ const Canvas = forwardRef(({
       }
     });
     
-    // Handle eraser events
-    canvas.on('erasing:end', () => {
-      saveState();
-      onHistoryAdd('Erased');
-    });
+    // Handle eraser events (if EraserBrush is available)
+    if (window.fabric && window.fabric.EraserBrush) {
+      canvas.on('erasing:end', () => {
+        saveState();
+        onHistoryAdd('Erased');
+      });
+    }
 
     return () => {
       canvas.dispose();
