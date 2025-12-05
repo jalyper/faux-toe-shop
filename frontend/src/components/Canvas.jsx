@@ -206,10 +206,7 @@ const Canvas = forwardRef(({
     canvas.on('path:created', (e) => {
       if (e.path) {
         // Check if it's an eraser brush
-        const isEraser = canvas.freeDrawingBrush && 
-                        (canvas.freeDrawingBrush._isEraser || 
-                         (window.fabric && window.fabric.EraserBrush && 
-                          canvas.freeDrawingBrush instanceof window.fabric.EraserBrush));
+        const isEraser = canvas.freeDrawingBrush instanceof EraserBrush;
         
         if (!isEraser) {
           tagObjectWithLayer(e.path);
@@ -219,13 +216,11 @@ const Canvas = forwardRef(({
       }
     });
     
-    // Handle eraser events (if EraserBrush is available)
-    if (window.fabric && window.fabric.EraserBrush) {
-      canvas.on('erasing:end', () => {
-        saveState();
-        onHistoryAdd('Erased');
-      });
-    }
+    // Handle eraser events
+    canvas.on('erasing:end', () => {
+      saveState();
+      onHistoryAdd('Erased');
+    });
 
     return () => {
       canvas.dispose();
