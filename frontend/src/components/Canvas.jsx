@@ -166,7 +166,7 @@ const Canvas = forwardRef(({
         canvas.isDrawingMode = false;
         canvas.on('mouse:down', function(options) {
           if (activeTool === 'text') {
-            const text = new fabric.IText('Type here...', {
+            const text = new IText('Type here...', {
               left: options.pointer.x,
               top: options.pointer.y,
               fill: color,
