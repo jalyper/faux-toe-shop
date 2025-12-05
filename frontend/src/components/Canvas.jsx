@@ -318,6 +318,16 @@ const Canvas = forwardRef(({
     }
   }, [zoom]);
 
+  // Update current layer reference when activeLayerId changes
+  useEffect(() => {
+    currentLayerIdRef.current = activeLayerId;
+  }, [activeLayerId]);
+
+  // Update object visibility when layers change
+  useEffect(() => {
+    updateObjectsVisibility();
+  }, [layers]);
+
   return (
     <div className="flex-1 flex items-center justify-center overflow-auto p-4" data-testid="canvas-container">
       <canvas ref={canvasRef} className="shadow-lg" data-testid="main-canvas" />
