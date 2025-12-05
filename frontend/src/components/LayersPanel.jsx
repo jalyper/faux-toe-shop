@@ -32,7 +32,7 @@ const LayersPanel = ({ layers, activeLayerId, setActiveLayerId, onLayersUpdate, 
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4" data-testid="layers-panel">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-semibold">Layers</h3>
         <Button
@@ -40,6 +40,8 @@ const LayersPanel = ({ layers, activeLayerId, setActiveLayerId, onLayersUpdate, 
           variant="ghost"
           onClick={() => onLayerAdd('image')}
           className="h-8 w-8 p-0 hover:bg-[#3e3e3e]"
+          data-testid="add-layer-button"
+          aria-label="Add new layer"
         >
           <Plus size={16} />
         </Button>
@@ -47,15 +49,16 @@ const LayersPanel = ({ layers, activeLayerId, setActiveLayerId, onLayersUpdate, 
       
       <Separator className="bg-[#3e3e3e]" />
       
-      <div className="space-y-2 max-h-64 overflow-y-auto">
+      <div className="space-y-2 max-h-64 overflow-y-auto" data-testid="layers-list">
         {layers.length === 0 ? (
-          <div className="text-center text-sm text-gray-400 py-8">
+          <div className="text-center text-sm text-gray-400 py-8" data-testid="no-layers-message">
             No layers yet
           </div>
         ) : (
           layers.map(layer => (
             <div
               key={layer.id}
+              data-testid={`layer-${layer.id}`}
               className={`p-3 rounded cursor-pointer transition-colors ${
                 activeLayerId === layer.id
                   ? 'bg-[#0d7bdc]'
@@ -64,7 +67,7 @@ const LayersPanel = ({ layers, activeLayerId, setActiveLayerId, onLayersUpdate, 
               onClick={() => setActiveLayerId(layer.id)}
             >
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium">{layer.name}</span>
+                <span className="text-sm font-medium" data-testid={`layer-name-${layer.id}`}>{layer.name}</span>
                 <div className="flex items-center gap-2">
                   <button
                     onClick={(e) => {
@@ -72,6 +75,8 @@ const LayersPanel = ({ layers, activeLayerId, setActiveLayerId, onLayersUpdate, 
                       toggleLayerVisibility(layer.id);
                     }}
                     className="hover:text-blue-400 transition-colors"
+                    data-testid={`layer-visibility-${layer.id}`}
+                    aria-label={`Toggle visibility for ${layer.name}`}
                   >
                     {layer.visible ? <Eye size={14} /> : <EyeOff size={14} />}
                   </button>
@@ -81,6 +86,8 @@ const LayersPanel = ({ layers, activeLayerId, setActiveLayerId, onLayersUpdate, 
                       toggleLayerLock(layer.id);
                     }}
                     className="hover:text-blue-400 transition-colors"
+                    data-testid={`layer-lock-${layer.id}`}
+                    aria-label={`Toggle lock for ${layer.name}`}
                   >
                     {layer.locked ? <Lock size={14} /> : <Unlock size={14} />}
                   </button>
@@ -90,6 +97,8 @@ const LayersPanel = ({ layers, activeLayerId, setActiveLayerId, onLayersUpdate, 
                       deleteLayer(layer.id);
                     }}
                     className="hover:text-red-400 transition-colors"
+                    data-testid={`layer-delete-${layer.id}`}
+                    aria-label={`Delete ${layer.name}`}
                   >
                     <Trash2 size={14} />
                   </button>
