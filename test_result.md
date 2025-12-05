@@ -218,6 +218,18 @@ test_plan:
           agent: "testing"
           comment: "✅ Layer normalization functionality working perfectly. Clicking 'Yes' in normalize dialog successfully converts Background layer to 'Layer 0' and removes isBackground flag. Delete button appears after normalization as expected. Normalized layer can be deleted successfully, showing 'No layers yet' message."
 
+  - task: "Layer Isolation Functionality - Multi-Layer Drawing and Management"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/Canvas.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ Layer isolation functionality working perfectly. Comprehensive testing completed: 1) Successfully created multiple layers with different pencil patterns (horizontal, vertical, diagonal, circle, rectangle), 2) Layer switching maintains visibility with proper active layer highlighting, 3) Layer deletion removes only specific layer content while preserving other layers, 4) Full layer lifecycle tested - create, draw, switch, delete operations work flawlessly. Canvas objects are properly tagged with layerId and isolated per layer. Layer visibility and deletion work correctly through Fabric.js integration."
+
 agent_communication:
     - agent: "testing"
       message: "Completed comprehensive integration testing of Photoshop clone application. Core functionality is working well - application loads, canvas drawing works perfectly with pencil tool, and toolbar selection works. Main issues are with layer management testing - layer creation appears to work but text detection fails, and layer deletion buttons cannot be located properly. These seem to be test selector issues rather than functionality problems. The drawing functionality is the most critical feature and it works flawlessly."
