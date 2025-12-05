@@ -71,6 +71,34 @@ const LayersPanel = ({ layers, activeLayerId, setActiveLayerId, onLayersUpdate, 
     }
   };
 
+  const handleColorSwatchClick = (e, layer) => {
+    if (layer.isBackground) {
+      e.stopPropagation();
+      setTempBackgroundColor(backgroundColor || '#ffffff');
+      setColorPickerOpen(true);
+    }
+  };
+
+  const handleColorChange = (newColor) => {
+    setTempBackgroundColor(newColor);
+    // Update in real-time
+    if (onBackgroundColorChange) {
+      onBackgroundColorChange(newColor);
+    }
+  };
+
+  const handleColorPickerOk = () => {
+    setColorPickerOpen(false);
+  };
+
+  const handleColorPickerCancel = () => {
+    // Revert to original color
+    if (onBackgroundColorChange) {
+      onBackgroundColorChange(backgroundColor);
+    }
+    setColorPickerOpen(false);
+  };
+
   return (
     <div className="space-y-4" data-testid="layers-panel">
       <div className="flex items-center justify-between">
