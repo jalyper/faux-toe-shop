@@ -23,6 +23,7 @@ const PhotoshopEditor = () => {
   const [activeTool, setActiveTool] = useState('select');
   const [brushSize, setBrushSize] = useState(5);
   const [color, setColor] = useState('#000000');
+  const [backgroundColor, setBackgroundColor] = useState('#ffffff');
   const [layers, setLayers] = useState([backgroundLayer]);
   const [activeLayerId, setActiveLayerId] = useState('background');
   const [history, setHistory] = useState([]);
