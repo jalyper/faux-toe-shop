@@ -181,6 +181,7 @@ const PhotoshopEditor = () => {
             ref={canvasRef}
             activeTool={activeTool}
             brushSize={brushSize}
+            brushOpacity={brushOpacity}
             color={color}
             zoom={zoom}
             backgroundColor={backgroundColor}
