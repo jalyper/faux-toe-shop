@@ -238,11 +238,93 @@ const Canvas = forwardRef(({
         canvas.freeDrawingBrush.width = brushSize;
         break;
       case 'eraser':
-        canvas.isDrawingMode = true;
-        if (canvas.freeDrawingBrush) {
-          canvas.freeDrawingBrush.color = '#ffffff';
-          canvas.freeDrawingBrush.width = brushSize;
-        }
+        canvas.isDrawingMode = false;
+        // Custom eraser implementation that only affects active layer
+        let isErasing = false;
+        let lastX, lastY;
+        
+        canvas.on('mouse:down', function(o) {
+          if (activeTool === 'eraser') {
+            isErasing = true;
+            const pointer = canvas.getPointer(o.e);
+            lastX = pointer.x;
+            lastY = pointer.y;
+          }
+        });
+        
+        canvas.on('mouse:move', function(o) {
+          if (!isErasing || activeTool !== 'eraser') return;
+          
+          const pointer = canvas.getPointer(o.e);
+          const currentX = pointer.x;
+          const currentY = pointer.y;
+          
+          // Find and remove objects from active layer that intersect with eraser path
+          const objectsToCheck = canvas.getObjects().filter(obj => 
+            obj.layerId === currentLayerIdRef.current
+          );
+          
+          objectsToCheck.forEach(obj => {
+            if (obj.intersectsWithObject) {
+              // Create a small circle at eraser position to check intersection
+              const eraserCircle = new Circle({
+                left: currentX - brushSize/2,
+                top: currentY - brushSize/2,
+                radius: brushSize / 2,
+                fill: 'transparent',
+                stroke: 'transparent'
+              });
+              
+              if (obj.intersectsWithObject(eraserCircle)) {
+                // For path objects (drawn strokes), check if eraser is close enough
+                if (obj.type === 'path') {
+                  const threshold = brushSize;
+                  const pathPoints = obj.path;
+                  
+                  for (let i = 0; i < pathPoints.length; i++) {
+                    const cmd = pathPoints[i];
+                    if (cmd[0] === 'M' || cmd[0] === 'L') {
+                      const px = cmd[1];
+                      const py = cmd[2];
+                      const dist = Math.sqrt(Math.pow(px - currentX, 2) + Math.pow(py - currentY, 2));
+                      
+                      if (dist < threshold) {
+                        canvas.remove(obj);
+                        break;
+                      }
+                    }
+                  }
+                } else {
+                  // For other objects, check bounds intersection
+                  const objBounds = obj.getBoundingRect();
+                  const eraserLeft = currentX - brushSize/2;
+                  const eraserTop = currentY - brushSize/2;
+                  const eraserRight = currentX + brushSize/2;
+                  const eraserBottom = currentY + brushSize/2;
+                  
+                  if (!(objBounds.left + objBounds.width < eraserLeft ||
+                        objBounds.left > eraserRight ||
+                        objBounds.top + objBounds.height < eraserTop ||
+                        objBounds.top > eraserBottom)) {
+                    canvas.remove(obj);
+                  }
+                }
+              }
+            }
+          });
+          
+          lastX = currentX;
+          lastY = currentY;
+          canvas.renderAll();
+        });
+        
+        canvas.on('mouse:up', function() {
+          if (isErasing) {
+            isErasing = false;
+            saveState();
+            onHistoryAdd('Eraser Used');
+          }
+        });
         break;
       case 'text':
         canvas.isDrawingMode = false;
