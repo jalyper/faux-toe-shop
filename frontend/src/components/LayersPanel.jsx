@@ -97,8 +97,8 @@ const LayersPanel = ({ layers, activeLayerId, setActiveLayerId, onLayersUpdate, 
 
   const handleColorPickerCancel = () => {
     // Revert to original color
-    if (onBackgroundColorChange) {
-      onBackgroundColorChange(backgroundColor);
+    if (onBackgroundColorChange && originalBackgroundColor) {
+      onBackgroundColorChange(originalBackgroundColor);
     }
     setColorPickerOpen(false);
   };
