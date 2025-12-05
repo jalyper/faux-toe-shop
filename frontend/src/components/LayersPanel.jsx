@@ -93,7 +93,7 @@ const LayersPanel = ({ layers, activeLayerId, setActiveLayerId, onLayersUpdate, 
             No layers yet
           </div>
         ) : (
-          layers.map(layer => (
+          [...layers].reverse().map(layer => (
             <div
               key={layer.id}
               data-testid={`layer-${layer.id}`}
