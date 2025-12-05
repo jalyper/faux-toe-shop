@@ -377,6 +377,18 @@ test_plan:
           agent: "testing"
           comment: "🎉 COMPREHENSIVE LAYER ISOLATION WITH DRAWING TOOLS TESTS COMPLETED SUCCESSFULLY! All 5 critical test scenarios passed: ✅ TEST 1: Brush only draws on active layer - Successfully normalized Background to Layer 0, drew horizontal line with brush, added Layer 1, drew vertical line, switched back to Layer 0 and drew diagonal - all lines properly isolated to their respective layers. ✅ TEST 2: Pencil only draws on active layer - Drew square pattern on Layer 0, added Layer 1 with circle pattern, switched back to Layer 0 and added X pattern - Layer 1 circle remained unchanged, perfect isolation. ✅ TEST 3: Eraser ONLY affects active layer (CRITICAL) - Drew horizontal lines on both Layer 0 and Layer 1, used eraser on Layer 1 (active) over Layer 0 line area (did NOT erase), then erased Layer 1 line (successfully erased), switched to Layer 0 and erased Layer 0 line - eraser respects active layer perfectly. ✅ TEST 4: Multi-layer drawing and selective erasing - Created 3 layers with different patterns (horizontal, vertical, diagonal), selected middle Layer 1 and erased its content while preserving Layer 0 and Layer 2 content. ✅ TEST 5: Drawing tools never affect other layers - Tested brush, pencil, and eraser on multiple layers, confirmed complete isolation. Layer isolation functionality is working flawlessly with proper canvas object tagging by layerId and selective tool behavior."
 
+  - task: "Layer-Aware Selection/Drag Tool - Selection Isolation"
+    implemented: true
+    working: false
+    file: "/app/frontend/src/components/Canvas.jsx"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: false
+          agent: "testing"
+          comment: "❌ CRITICAL ISSUES FOUND in layer-aware selection/drag functionality: 1) ✅ PARTIAL SUCCESS: Layer isolation correctly prevents selection of objects on inactive layers (rectangle on Layer 0 was NOT selectable when Layer 2 was active), 2) ❌ Circle objects cannot be selected even on their active layer - suggests issue with circle object tagging or selection logic in Canvas.jsx, 3) ❌ Layer switching has timeout issues when accessing Layer 0, 4) ❌ Canvas objects appear to be getting deleted or lost during layer operations. The core updateObjectsSelectability() function works for preventing cross-layer selection, but there are significant issues with object persistence and circle selection that need investigation."
+
   - task: "Eraser Tool - Layer Isolation Re-Testing"
     implemented: true
     working: true
