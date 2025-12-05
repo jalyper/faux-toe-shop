@@ -124,6 +124,14 @@ const Canvas = forwardRef(({
     historyStepRef.current = historyRef.current.length - 1;
   };
 
+  // Convert hex color to rgba with opacity
+  const hexToRgba = (hex, opacity) => {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return `rgba(${r}, ${g}, ${b}, ${opacity / 100})`;
+  };
+
   // Tag newly added objects with current layer ID
   const tagObjectWithLayer = (obj) => {
     if (obj && currentLayerIdRef.current) {
