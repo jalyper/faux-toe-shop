@@ -326,7 +326,7 @@ const Canvas = forwardRef(({
       default:
         canvas.isDrawingMode = false;
     }
-  }, [activeTool, brushSize, color]);
+  }, [activeTool, brushSize, brushOpacity, color]);
 
   useEffect(() => {
     if (fabricCanvasRef.current) {
