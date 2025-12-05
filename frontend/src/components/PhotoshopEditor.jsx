@@ -208,6 +208,8 @@ const PhotoshopEditor = () => {
               setActiveLayerId={setActiveLayerId}
               onLayersUpdate={handleLayerUpdate}
               onLayerAdd={handleLayerAdd}
+              backgroundColor={backgroundColor}
+              onBackgroundColorChange={handleBackgroundColorChange}
             />
           </div>
           
