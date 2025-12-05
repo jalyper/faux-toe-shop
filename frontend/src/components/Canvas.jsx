@@ -16,6 +16,7 @@ const Canvas = forwardRef(({
   const fabricCanvasRef = useRef(null);
   const historyRef = useRef([]);
   const historyStepRef = useRef(0);
+  const currentLayerIdRef = useRef(activeLayerId);
 
   useImperativeHandle(ref, () => ({
     undo: () => {
