@@ -268,8 +268,8 @@ const Canvas = forwardRef(({
   }, [zoom]);
 
   return (
-    <div className="flex-1 flex items-center justify-center overflow-auto p-4">
-      <canvas ref={canvasRef} className="shadow-lg" />
+    <div className="flex-1 flex items-center justify-center overflow-auto p-4" data-testid="canvas-container">
+      <canvas ref={canvasRef} className="shadow-lg" data-testid="main-canvas" />
     </div>
   );
 });
