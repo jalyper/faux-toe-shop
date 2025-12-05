@@ -358,11 +358,8 @@ const Canvas = forwardRef(({
     }
   }, [activeTool, brushSize, brushOpacity, color]);
 
-  useEffect(() => {
-    if (fabricCanvasRef.current) {
-      fabricCanvasRef.current.setZoom(zoom / 100);
-    }
-  }, [zoom]);
+  // Zoom is now handled by CSS transform in the container, not by Fabric.js
+  // This keeps the canvas size and object sizes constant
 
   // Update current layer reference when activeLayerId changes
   useEffect(() => {
