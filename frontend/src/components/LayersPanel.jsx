@@ -39,8 +39,34 @@ const LayersPanel = ({ layers, activeLayerId, setActiveLayerId, onLayersUpdate, 
   };
 
   const deleteLayer = (layerId) => {
+    // Prevent deletion of background layer
+    const layer = layers.find(l => l.id === layerId);
+    if (layer?.isBackground) {
+      return;
+    }
     const updatedLayers = layers.filter(layer => layer.id !== layerId);
     onLayersUpdate(updatedLayers);
+  };
+
+  const handleLayerDoubleClick = (layer) => {
+    // Only show normalize dialog for background layer
+    if (layer.isBackground) {
+      setLayerToNormalize(layer);
+      setNormalizeDialogOpen(true);
+    }
+  };
+
+  const normalizeLayer = () => {
+    if (layerToNormalize) {
+      const updatedLayers = layers.map(layer =>
+        layer.id === layerToNormalize.id
+          ? { ...layer, name: 'Layer 0', isBackground: false }
+          : layer
+      );
+      onLayersUpdate(updatedLayers);
+      setNormalizeDialogOpen(false);
+      setLayerToNormalize(null);
+    }
   };
 
   return (
