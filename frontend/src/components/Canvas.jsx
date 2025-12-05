@@ -5,6 +5,7 @@ import { filters } from 'fabric';
 const Canvas = forwardRef(({
   activeTool,
   brushSize,
+  brushOpacity,
   color,
   zoom,
   backgroundColor,
