@@ -38,7 +38,7 @@ const Canvas = forwardRef(({
     loadImage: (file) => {
       const reader = new FileReader();
       reader.onload = (e) => {
-        fabric.Image.fromURL(e.target.result, (img) => {
+        FabricImage.fromURL(e.target.result, (img) => {
           img.scaleToWidth(600);
           img.scaleToHeight(400);
           fabricCanvasRef.current.add(img);
