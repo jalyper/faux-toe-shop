@@ -238,6 +238,76 @@ const LayersPanel = ({ layers, activeLayerId, setActiveLayerId, onLayersUpdate, 
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      {/* Background Color Picker Dialog */}
+      <AlertDialog open={colorPickerOpen} onOpenChange={setColorPickerOpen}>
+        <AlertDialogContent className="bg-[#262626] border-[#3e3e3e] text-white" data-testid="background-color-picker-dialog">
+          <AlertDialogHeader>
+            <AlertDialogTitle>Background Color</AlertDialogTitle>
+            <AlertDialogDescription className="text-gray-400">
+              Select a color for the canvas background
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <div className="py-4">
+            <div className="space-y-4">
+              <div className="flex items-center gap-4">
+                <input
+                  type="color"
+                  value={tempBackgroundColor}
+                  onChange={(e) => handleColorChange(e.target.value)}
+                  className="w-20 h-20 cursor-pointer rounded border-2 border-gray-600"
+                  data-testid="background-color-input"
+                />
+                <div className="flex-1">
+                  <label className="text-xs text-gray-400 block mb-2">Hex Color</label>
+                  <input
+                    type="text"
+                    value={tempBackgroundColor}
+                    onChange={(e) => handleColorChange(e.target.value)}
+                    className="w-full px-3 py-2 bg-[#3e3e3e] border border-[#4e4e4e] rounded text-white"
+                    placeholder="#ffffff"
+                    data-testid="background-color-hex-input"
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="text-xs text-gray-400 block mb-2">Quick Colors</label>
+                <div className="grid grid-cols-8 gap-2">
+                  {['#ffffff', '#000000', '#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff',
+                    '#c0c0c0', '#808080', '#800000', '#008000', '#000080', '#808000', '#800080', '#008080'].map((presetColor) => (
+                    <button
+                      key={presetColor}
+                      onClick={() => handleColorChange(presetColor)}
+                      className="w-8 h-8 rounded border-2 hover:scale-110 transition-transform"
+                      style={{ 
+                        backgroundColor: presetColor,
+                        borderColor: tempBackgroundColor === presetColor ? '#0d7bdc' : '#4e4e4e'
+                      }}
+                      title={presetColor}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+          <AlertDialogFooter>
+            <AlertDialogCancel 
+              onClick={handleColorPickerCancel}
+              className="bg-[#3e3e3e] border-[#4e4e4e] hover:bg-[#4e4e4e] text-white"
+              data-testid="background-color-cancel"
+            >
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={handleColorPickerOk}
+              className="bg-[#0d7bdc] hover:bg-[#0c6ec7] text-white"
+              data-testid="background-color-ok"
+            >
+              OK
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
