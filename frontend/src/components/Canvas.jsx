@@ -67,30 +67,30 @@ const Canvas = forwardRef(({
 
       switch (filterType) {
         case 'brightness':
-          activeObject.filters.push(new fabric.Image.filters.Brightness({
+          activeObject.filters.push(new filters.Brightness({
             brightness: value / 100
           }));
           break;
         case 'contrast':
-          activeObject.filters.push(new fabric.Image.filters.Contrast({
+          activeObject.filters.push(new filters.Contrast({
             contrast: value / 100
           }));
           break;
         case 'saturation':
-          activeObject.filters.push(new fabric.Image.filters.Saturation({
+          activeObject.filters.push(new filters.Saturation({
             saturation: value / 100
           }));
           break;
         case 'blur':
-          activeObject.filters.push(new fabric.Image.filters.Blur({
+          activeObject.filters.push(new filters.Blur({
             blur: value / 100
           }));
           break;
         case 'grayscale':
-          activeObject.filters.push(new fabric.Image.filters.Grayscale());
+          activeObject.filters.push(new filters.Grayscale());
           break;
         case 'sepia':
-          activeObject.filters.push(new fabric.Image.filters.Sepia());
+          activeObject.filters.push(new filters.Sepia());
           break;
         default:
           break;
