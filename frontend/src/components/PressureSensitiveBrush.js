@@ -3,34 +3,15 @@ import { PencilBrush } from 'fabric';
 class PressureSensitiveBrush extends PencilBrush {
   constructor(canvas) {
     super(canvas);
-    this.pressurePoints = [];
     this.simulatePressure = true; // For testing without stylus
     this.simulationPhase = 0;
-  }
-
-  // Override onMouseDown to track pressure
-  onMouseDown(pointer, options) {
-    this.pressurePoints = [];
-    const pressure = this.getPressure(options.e);
-    this.pressurePoints.push({ x: pointer.x, y: pointer.y, pressure });
-    super.onMouseDown(pointer, options);
-  }
-
-  // Override onMouseMove to track pressure and adjust width
-  onMouseMove(pointer, options) {
-    const pressure = this.getPressure(options.e);
-    this.pressurePoints.push({ x: pointer.x, y: pointer.y, pressure });
-    
-    // Adjust brush width based on pressure
-    this.width = this._originalWidth * pressure;
-    
-    super.onMouseMove(pointer, options);
+    this.baseWidth = 5; // Will be set from outside
   }
 
   // Get pressure from pointer event or simulate it
-  getPressure(event) {
+  _getPressure(event) {
     // Check if device supports pressure
-    if (event.pressure !== undefined && event.pressure > 0) {
+    if (event && event.pressure !== undefined && event.pressure > 0) {
       return event.pressure;
     }
     
@@ -45,14 +26,33 @@ class PressureSensitiveBrush extends PencilBrush {
     return 0.5; // Default pressure
   }
 
-  // Store original width
-  set width(value) {
-    this._originalWidth = value;
-    super.width = value;
+  // Override _render to apply pressure during drawing
+  _render(ctx) {
+    // Store original width
+    const originalWidth = this.width;
+    
+    // Don't modify width - just call parent render
+    super._render(ctx);
   }
 
-  get width() {
-    return super.width;
+  // Apply pressure to stroke width during drawing
+  onMouseMove(pointer, options) {
+    if (options && options.e) {
+      const pressure = this._getPressure(options.e);
+      // Temporarily adjust width based on pressure
+      this.width = this.baseWidth * pressure;
+    }
+    
+    super.onMouseMove(pointer, options);
+  }
+
+  onMouseDown(pointer, options) {
+    this.simulationPhase = 0; // Reset simulation phase
+    if (options && options.e) {
+      const pressure = this._getPressure(options.e);
+      this.width = this.baseWidth * pressure;
+    }
+    super.onMouseDown(pointer, options);
   }
 }
 
