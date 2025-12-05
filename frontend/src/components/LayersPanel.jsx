@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Eye, EyeOff, Lock, Unlock, Plus, Trash2 } from 'lucide-react';
 import { Button } from './ui/button';
 import { Separator } from './ui/separator';
 import { Slider } from './ui/slider';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from './ui/alert-dialog';
 
 const LayersPanel = ({ layers, activeLayerId, setActiveLayerId, onLayersUpdate, onLayerAdd }) => {
+  const [normalizeDialogOpen, setNormalizeDialogOpen] = useState(false);
+  const [layerToNormalize, setLayerToNormalize] = useState(null);
   const toggleLayerVisibility = (layerId) => {
     const updatedLayers = layers.map(layer =>
       layer.id === layerId ? { ...layer, visible: !layer.visible } : layer
