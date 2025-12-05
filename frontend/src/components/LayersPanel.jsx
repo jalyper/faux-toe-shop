@@ -170,6 +170,33 @@ const LayersPanel = ({ layers, activeLayerId, setActiveLayerId, onLayersUpdate, 
           ))
         )}
       </div>
+
+      {/* Normalize Layer Dialog */}
+      <AlertDialog open={normalizeDialogOpen} onOpenChange={setNormalizeDialogOpen}>
+        <AlertDialogContent className="bg-[#262626] border-[#3e3e3e] text-white" data-testid="normalize-dialog">
+          <AlertDialogHeader>
+            <AlertDialogTitle>Normalize layer?</AlertDialogTitle>
+            <AlertDialogDescription className="text-gray-400">
+              This will convert the Background layer to a regular layer named "Layer 0", making it editable and deletable.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel 
+              className="bg-[#3e3e3e] border-[#4e4e4e] hover:bg-[#4e4e4e] text-white"
+              data-testid="normalize-cancel"
+            >
+              No
+            </AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={normalizeLayer}
+              className="bg-[#0d7bdc] hover:bg-[#0c6ec7] text-white"
+              data-testid="normalize-confirm"
+            >
+              Yes
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
