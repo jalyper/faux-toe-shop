@@ -8,6 +8,7 @@ const Canvas = forwardRef(({
   activeTool,
   brushSize,
   brushOpacity,
+  pressureSensitivity,
   color,
   zoom,
   backgroundColor,
