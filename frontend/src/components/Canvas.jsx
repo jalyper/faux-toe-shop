@@ -114,7 +114,7 @@ const Canvas = forwardRef(({
   useEffect(() => {
     if (!canvasRef.current) return;
 
-    const canvas = new fabric.Canvas(canvasRef.current, {
+    const canvas = new FabricCanvas(canvasRef.current, {
       width: 1200,
       height: 800,
       backgroundColor: '#ffffff'
