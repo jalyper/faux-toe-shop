@@ -145,11 +145,18 @@ const Canvas = forwardRef(({
     canvas.isDrawingMode = false;
     canvas.selection = true;
 
+    // Remove existing event listeners
+    canvas.off('mouse:down');
+    canvas.off('mouse:move');
+    canvas.off('mouse:up');
+
     switch (activeTool) {
       case 'brush':
         canvas.isDrawingMode = true;
-        canvas.freeDrawingBrush.color = color;
-        canvas.freeDrawingBrush.width = brushSize;
+        if (canvas.freeDrawingBrush) {
+          canvas.freeDrawingBrush.color = color;
+          canvas.freeDrawingBrush.width = brushSize;
+        }
         break;
       case 'pencil':
         canvas.isDrawingMode = true;
@@ -159,8 +166,10 @@ const Canvas = forwardRef(({
         break;
       case 'eraser':
         canvas.isDrawingMode = true;
-        canvas.freeDrawingBrush.color = '#ffffff';
-        canvas.freeDrawingBrush.width = brushSize;
+        if (canvas.freeDrawingBrush) {
+          canvas.freeDrawingBrush.color = '#ffffff';
+          canvas.freeDrawingBrush.width = brushSize;
+        }
         break;
       case 'text':
         canvas.isDrawingMode = false;
