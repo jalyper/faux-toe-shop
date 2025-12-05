@@ -335,6 +335,14 @@ const Canvas = forwardRef(({
     updateObjectsVisibility();
   }, [layers]);
 
+  // Update canvas background color when prop changes
+  useEffect(() => {
+    if (fabricCanvasRef.current && backgroundColor) {
+      fabricCanvasRef.current.backgroundColor = backgroundColor;
+      fabricCanvasRef.current.renderAll();
+    }
+  }, [backgroundColor]);
+
   return (
     <div className="flex-1 flex items-center justify-center overflow-auto p-4" data-testid="canvas-container">
       <canvas ref={canvasRef} className="shadow-lg" data-testid="main-canvas" />
