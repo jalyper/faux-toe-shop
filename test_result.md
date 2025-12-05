@@ -230,6 +230,78 @@ test_plan:
           agent: "testing"
           comment: "✅ Layer isolation functionality working perfectly. Comprehensive testing completed: 1) Successfully created multiple layers with different pencil patterns (horizontal, vertical, diagonal, circle, rectangle), 2) Layer switching maintains visibility with proper active layer highlighting, 3) Layer deletion removes only specific layer content while preserving other layers, 4) Full layer lifecycle tested - create, draw, switch, delete operations work flawlessly. Canvas objects are properly tagged with layerId and isolated per layer. Layer visibility and deletion work correctly through Fabric.js integration."
 
+  - task: "Background Color Functionality - Layer Stacking Order"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/LayersPanel.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ Layer stacking order working perfectly. Comprehensive testing completed: 1) Successfully added 3 new layers (Layer 2, Layer 3, Layer 4) on top of Background layer, 2) Verified newest layers appear at top of layer list in correct visual order, 3) Layer DOM structure maintains proper hierarchy with newest layers first in reversed display, 4) All layers properly named and identified with correct data-testid attributes. Layer stacking functionality is fully implemented and working correctly."
+
+  - task: "Background Color Functionality - Color Swatch Display"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/LayersPanel.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ Background color swatch functionality working perfectly. Successfully tested: 1) Background layer displays color swatch with data-testid='background-color-swatch', 2) Swatch shows current background color (initially white rgb(255, 255, 255)), 3) Swatch is clickable and properly positioned within Background layer, 4) Visual styling and hover effects working correctly. Color swatch display is fully functional."
+
+  - task: "Background Color Functionality - Color Picker Dialog"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/LayersPanel.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ Color picker dialog functionality working perfectly. Comprehensive testing completed: 1) Clicking background color swatch opens dialog with data-testid='background-color-picker-dialog', 2) Dialog displays correct title 'Background Color', 3) All required controls present: color input (data-testid='background-color-input'), hex input (data-testid='background-color-hex-input'), Cancel button (data-testid='background-color-cancel'), OK button (data-testid='background-color-ok'), 4) Quick color palette with preset colors available. Dialog UI is fully functional with proper data-testid attributes."
+
+  - task: "Background Color Functionality - Real-time Color Updates"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/LayersPanel.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ Real-time color update functionality working perfectly. Successfully tested: 1) Changing hex input to #ff0000 (red) immediately updates canvas background in real-time, 2) Changing to #00ff00 (green) shows instant visual feedback on canvas, 3) Color changes are applied without closing dialog, allowing live preview, 4) Canvas background updates smoothly through Fabric.js integration. Real-time color functionality is fully implemented and responsive."
+
+  - task: "Background Color Functionality - OK Button Behavior"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/LayersPanel.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ OK button functionality working perfectly. Successfully tested: 1) Changed color to blue #4169e1 and verified real-time update, 2) Clicked OK button closes color picker dialog completely, 3) Selected color persists after dialog closure, 4) Background color swatch updates to show new color (rgb(65, 105, 225)), 5) Canvas maintains blue background after dialog closes. OK button behavior is fully functional."
+
+  - task: "Background Color Functionality - Cancel Button Behavior"
+    implemented: true
+    working: false
+    file: "/app/frontend/src/components/LayersPanel.jsx"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: false
+          agent: "testing"
+          comment: "❌ Cancel button functionality has an issue. Testing revealed: 1) Cancel button successfully closes the color picker dialog, 2) However, color does NOT revert to original state - when changed to red and cancelled, the background remains red instead of reverting to blue, 3) Color swatch shows red (rgb(255, 0, 0)) instead of original blue color, 4) The handleColorPickerCancel function may not be properly restoring the original backgroundColor state. Cancel functionality needs to be fixed to properly revert color changes."
+
 agent_communication:
     - agent: "testing"
       message: "Completed comprehensive integration testing of Photoshop clone application. Core functionality is working well - application loads, canvas drawing works perfectly with pencil tool, and toolbar selection works. Main issues are with layer management testing - layer creation appears to work but text detection fails, and layer deletion buttons cannot be located properly. These seem to be test selector issues rather than functionality problems. The drawing functionality is the most critical feature and it works flawlessly."
@@ -239,3 +311,5 @@ agent_communication:
       message: "🎉 BACKGROUND LAYER INTEGRATION TESTS COMPLETED SUCCESSFULLY! All 5 comprehensive test scenarios passed: 1) App opens with default Background layer ✅, 2) Background layer cannot be deleted (no delete button) ✅, 3) Double-clicking shows normalize prompt with Yes/No options ✅, 4) Normalizing converts Background to Layer 0 with delete button ✅, 5) Normalized layer can be deleted successfully ✅. The Background layer functionality is fully implemented and working perfectly with proper data-testid attributes, normalize dialog, and layer state management."
     - agent: "testing"
       message: "🎉 LAYER ISOLATION INTEGRATION TESTS COMPLETED SUCCESSFULLY! All 4 comprehensive layer isolation test scenarios passed: 1) ✅ Two layers created with different pencil patterns - horizontal line on Layer 0, vertical line on Layer 2, both visible simultaneously, 2) ✅ Switching between layers maintains visibility - layer selection works correctly with proper highlighting (bg-[#0d7bdc]), both drawings remain visible, 3) ✅ Deleting one layer removes only that layer's content - successfully deleted Layer 2, only Layer 0 with horizontal line remains, layer isolation working perfectly, 4) ✅ Full layer lifecycle works correctly - created 3 layers with different patterns (diagonal, circle, rectangle), selected Layer 1, deleted it successfully, Layer 0 and Layer 2 content preserved. Layer isolation functionality is fully implemented and working flawlessly with proper canvas object tagging by layerId and selective deletion."
+    - agent: "testing"
+      message: "🎯 BACKGROUND COLOR INTEGRATION TESTS COMPLETED! Comprehensive testing of 6 new layer features: ✅ Layer stacking order working perfectly - newest layers appear at top, ✅ Background color swatch exists and displays correctly, ✅ Color picker dialog opens with all required controls, ✅ Real-time color updates work flawlessly (red, green, blue changes), ✅ OK button closes picker and keeps selected color, ❌ Cancel button has critical issue - does NOT revert color changes as expected. 5 out of 6 features working perfectly. The Cancel button functionality needs to be fixed to properly restore original background color when user cancels color selection."
