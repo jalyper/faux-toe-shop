@@ -162,6 +162,33 @@ const Canvas = forwardRef(({
     canvas.renderAll();
   };
 
+  // Update which objects can be selected based on active layer
+  const updateObjectsSelectability = () => {
+    if (!fabricCanvasRef.current) return;
+    
+    const canvas = fabricCanvasRef.current;
+    
+    canvas.getObjects().forEach(obj => {
+      if (obj.layerId) {
+        // Only allow selection of objects on the active layer
+        if (obj.layerId === currentLayerIdRef.current) {
+          obj.selectable = true;
+          obj.evented = true;
+        } else {
+          obj.selectable = false;
+          obj.evented = false;
+        }
+      }
+    });
+    
+    // Clear any current selection if the selected object is not on active layer
+    const activeObject = canvas.getActiveObject();
+    if (activeObject && activeObject.layerId !== currentLayerIdRef.current) {
+      canvas.discardActiveObject();
+      canvas.renderAll();
+    }
+  };
+
   // Remove all objects belonging to a specific layer
   const removeLayerObjects = (layerId) => {
     if (!fabricCanvasRef.current) return;
