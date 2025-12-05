@@ -7,6 +7,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
+import logo from '../assets/faux-toe-shop-logo.png';
 
 const MenuBar = ({ onFileUpload, onExport, onUndo, onRedo, canUndo, canRedo }) => {
   const fileInputRef = useRef(null);
@@ -20,7 +21,11 @@ const MenuBar = ({ onFileUpload, onExport, onUndo, onRedo, canUndo, canRedo }) =
 
   return (
     <div className="h-12 bg-[#1e1e1e] border-b border-[#3e3e3e] flex items-center px-4 gap-4">
-      <div className="text-lg font-bold text-white">Photoshop Clone</div>
+      <img
+        src={logo}
+        alt="Faux Toe Shop logo"
+        className="h-24 w-auto object-contain select-none"
+      />
       
       <div className="flex items-center gap-1">
         <DropdownMenu>
