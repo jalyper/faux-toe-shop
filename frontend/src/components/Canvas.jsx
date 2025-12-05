@@ -107,6 +107,12 @@ const Canvas = forwardRef(({
     },
     deleteLayer: (layerId) => {
       removeLayerObjects(layerId);
+    },
+    setBackgroundColor: (color) => {
+      if (fabricCanvasRef.current) {
+        fabricCanvasRef.current.backgroundColor = color;
+        fabricCanvasRef.current.renderAll();
+      }
     }
   }));
 
