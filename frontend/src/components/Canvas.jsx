@@ -113,6 +113,44 @@ const Canvas = forwardRef(({
     historyStepRef.current = historyRef.current.length - 1;
   };
 
+  // Tag newly added objects with current layer ID
+  const tagObjectWithLayer = (obj) => {
+    if (obj && currentLayerIdRef.current) {
+      obj.set('layerId', currentLayerIdRef.current);
+    }
+  };
+
+  // Update visibility of all objects based on active layers
+  const updateObjectsVisibility = () => {
+    if (!fabricCanvasRef.current) return;
+    
+    const canvas = fabricCanvasRef.current;
+    const visibleLayers = layers.filter(l => l.visible).map(l => l.id);
+    
+    canvas.getObjects().forEach(obj => {
+      if (obj.layerId) {
+        obj.visible = visibleLayers.includes(obj.layerId);
+      }
+    });
+    
+    canvas.renderAll();
+  };
+
+  // Remove all objects belonging to a specific layer
+  const removeLayerObjects = (layerId) => {
+    if (!fabricCanvasRef.current) return;
+    
+    const canvas = fabricCanvasRef.current;
+    const objectsToRemove = canvas.getObjects().filter(obj => obj.layerId === layerId);
+    
+    objectsToRemove.forEach(obj => {
+      canvas.remove(obj);
+    });
+    
+    canvas.renderAll();
+    saveState();
+  };
+
   useEffect(() => {
     if (!canvasRef.current) return;
 
