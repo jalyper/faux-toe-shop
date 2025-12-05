@@ -361,7 +361,19 @@ const Canvas = forwardRef(({
   // Update current layer reference when activeLayerId changes
   useEffect(() => {
     currentLayerIdRef.current = activeLayerId;
-  }, [activeLayerId]);
+    
+    // Update erasable property when switching layers
+    if (fabricCanvasRef.current && activeTool === 'eraser') {
+      fabricCanvasRef.current.getObjects().forEach(obj => {
+        if (obj.layerId === activeLayerId) {
+          obj.erasable = true;
+        } else {
+          obj.erasable = false;
+        }
+      });
+      fabricCanvasRef.current.renderAll();
+    }
+  }, [activeLayerId, activeTool]);
 
   // Update object visibility when layers change
   useEffect(() => {
