@@ -202,45 +202,19 @@ const Canvas = forwardRef(({
 
     canvas.on('path:created', (e) => {
       if (e.path) {
-        // Check if this is an eraser stroke
-        if (canvas.freeDrawingBrush && canvas.freeDrawingBrush._isEraser) {
-          // Find objects on current layer that intersect with eraser path
-          const eraserPath = e.path;
-          const eraserBounds = eraserPath.getBoundingRect();
-          
-          const objectsToRemove = canvas.getObjects().filter(obj => {
-            // Only check objects on the current active layer
-            if (obj.layerId !== currentLayerIdRef.current) return false;
-            if (obj === eraserPath) return false;
-            
-            // Check if object intersects with eraser bounds
-            const objBounds = obj.getBoundingRect();
-            const intersects = !(
-              objBounds.left + objBounds.width < eraserBounds.left ||
-              objBounds.left > eraserBounds.left + eraserBounds.width ||
-              objBounds.top + objBounds.height < eraserBounds.top ||
-              objBounds.top > eraserBounds.top + eraserBounds.height
-            );
-            
-            return intersects;
-          });
-          
-          // Remove intersecting objects
-          objectsToRemove.forEach(obj => {
-            canvas.remove(obj);
-          });
-          
-          // Remove the eraser path itself (we don't want to keep it)
-          canvas.remove(eraserPath);
-          
-          canvas.renderAll();
-          saveState();
-          onHistoryAdd('Eraser Used');
-        } else {
-          // Regular drawing tool - tag with layer
+        // Tag path with layer ID for all drawing tools (not eraser)
+        if (!(canvas.freeDrawingBrush instanceof EraserBrush)) {
           tagObjectWithLayer(e.path);
+          // Make newly created objects erasable by default
+          e.path.erasable = true;
         }
       }
+    });
+    
+    // Handle eraser events
+    canvas.on('erasing:end', () => {
+      saveState();
+      onHistoryAdd('Erased');
     });
 
     return () => {
