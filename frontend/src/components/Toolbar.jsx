@@ -3,8 +3,9 @@ import { MousePointer, Brush, Pencil, Eraser, Type, Square, Circle, Move } from 
 import { Separator } from './ui/separator';
 import { Slider } from './ui/slider';
 import { Label } from './ui/label';
+import { Checkbox } from './ui/checkbox';
 
-const Toolbar = ({ activeTool, setActiveTool, brushSize, setBrushSize, brushOpacity, setBrushOpacity }) => {
+const Toolbar = ({ activeTool, setActiveTool, brushSize, setBrushSize, brushOpacity, setBrushOpacity, pressureSensitivity, setPressureSensitivity }) => {
   const tools = [
     { id: 'select', icon: MousePointer, label: 'Select' },
     { id: 'move', icon: Move, label: 'Move' },
