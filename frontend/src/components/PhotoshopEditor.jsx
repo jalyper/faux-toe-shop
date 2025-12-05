@@ -214,6 +214,9 @@ const PhotoshopEditor = () => {
             <PropertiesPanel 
               applyFilter={applyFilter}
               activeTool={activeTool}
+              layers={layers}
+              activeLayerId={activeLayerId}
+              onLayersUpdate={handleLayerUpdate}
             />
           </div>
           
