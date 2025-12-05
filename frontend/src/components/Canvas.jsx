@@ -270,16 +270,19 @@ const Canvas = forwardRef(({
     switch (activeTool) {
       case 'brush':
         canvas.isDrawingMode = true;
-        if (canvas.freeDrawingBrush) {
-          canvas.freeDrawingBrush.color = hexToRgba(color, brushOpacity);
-          canvas.freeDrawingBrush.width = brushSize;
-        }
+        const pressureBrush = new PressureSensitiveBrush(canvas);
+        pressureBrush.color = hexToRgba(color, brushOpacity);
+        pressureBrush.width = brushSize;
+        pressureBrush.simulatePressure = true; // Enable simulation for testing
+        canvas.freeDrawingBrush = pressureBrush;
         break;
       case 'pencil':
         canvas.isDrawingMode = true;
-        canvas.freeDrawingBrush = new PencilBrush(canvas);
-        canvas.freeDrawingBrush.color = hexToRgba(color, brushOpacity);
-        canvas.freeDrawingBrush.width = brushSize;
+        const pressurePencil = new PressureSensitiveBrush(canvas);
+        pressurePencil.color = hexToRgba(color, brushOpacity);
+        pressurePencil.width = brushSize;
+        pressurePencil.simulatePressure = true; // Enable simulation for testing
+        canvas.freeDrawingBrush = pressurePencil;
         break;
       case 'eraser':
         canvas.isDrawingMode = true;
