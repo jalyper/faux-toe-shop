@@ -136,12 +136,23 @@ const LayersPanel = ({ layers, activeLayerId, setActiveLayerId, onLayersUpdate, 
               onDoubleClick={() => handleLayerDoubleClick(layer)}
             >
               <div className="flex items-center justify-between mb-2">
-                <span 
-                  className="text-sm font-medium" 
-                  data-testid={`layer-name-${layer.id}`}
-                >
-                  {layer.name}
-                </span>
+                <div className="flex items-center gap-2">
+                  {layer.isBackground && (
+                    <button
+                      onClick={(e) => handleColorSwatchClick(e, layer)}
+                      className="w-5 h-5 rounded border-2 border-white hover:border-blue-400 transition-colors"
+                      style={{ backgroundColor: backgroundColor || '#ffffff' }}
+                      data-testid="background-color-swatch"
+                      title="Change background color"
+                    />
+                  )}
+                  <span 
+                    className="text-sm font-medium" 
+                    data-testid={`layer-name-${layer.id}`}
+                  >
+                    {layer.name}
+                  </span>
+                </div>
                 <div className="flex items-center gap-2">
                   <button
                     onClick={(e) => {
