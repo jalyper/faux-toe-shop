@@ -171,8 +171,17 @@ const Canvas = forwardRef(({
       onHistoryAdd('Object Modified');
     });
 
-    canvas.on('object:added', () => {
+    canvas.on('object:added', (e) => {
+      if (e.target) {
+        tagObjectWithLayer(e.target);
+      }
       saveState();
+    });
+
+    canvas.on('path:created', (e) => {
+      if (e.path) {
+        tagObjectWithLayer(e.path);
+      }
     });
 
     return () => {
