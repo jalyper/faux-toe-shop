@@ -84,6 +84,18 @@ const PhotoshopEditor = () => {
   };
 
   const handleLayerUpdate = (updatedLayers) => {
+    // Check if any layers were deleted
+    const deletedLayers = layers.filter(oldLayer => 
+      !updatedLayers.find(newLayer => newLayer.id === oldLayer.id)
+    );
+    
+    // Remove canvas objects for deleted layers
+    if (canvasRef.current && deletedLayers.length > 0) {
+      deletedLayers.forEach(layer => {
+        canvasRef.current.deleteLayer(layer.id);
+      });
+    }
+    
     setLayers(updatedLayers);
     if (canvasRef.current) {
       canvasRef.current.updateLayers(updatedLayers);
