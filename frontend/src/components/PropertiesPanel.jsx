@@ -1,22 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Slider } from './ui/slider';
 import { Label } from './ui/label';
 import { Button } from './ui/button';
 import { Separator } from './ui/separator';
 
-const PropertiesPanel = ({ applyFilter, activeTool }) => {
-  const [brightness, setBrightness] = useState(0);
-  const [contrast, setContrast] = useState(0);
-  const [saturation, setSaturation] = useState(0);
-  const [blur, setBlur] = useState(0);
+const PropertiesPanel = ({ applyFilter, activeTool, layers, activeLayerId, onLayersUpdate }) => {
+  const activeLayer = layers.find(l => l.id === activeLayerId);
+  const [brightness, setBrightness] = useState(activeLayer?.adjustments?.brightness || 0);
+  const [contrast, setContrast] = useState(activeLayer?.adjustments?.contrast || 0);
+  const [saturation, setSaturation] = useState(activeLayer?.adjustments?.saturation || 0);
+  const [blur, setBlur] = useState(activeLayer?.adjustments?.blur || 0);
+
+  // Update local state when active layer changes
+  useEffect(() => {
+    if (activeLayer?.adjustments) {
+      setBrightness(activeLayer.adjustments.brightness);
+      setContrast(activeLayer.adjustments.contrast);
+      setSaturation(activeLayer.adjustments.saturation);
+      setBlur(activeLayer.adjustments.blur);
+    }
+  }, [activeLayerId, activeLayer]);
 
   const handleApplyFilter = (filterType, value) => {
+    // Update layer's adjustment values
+    if (activeLayer) {
+      const updatedLayers = layers.map(layer => {
+        if (layer.id === activeLayerId) {
+          return {
+            ...layer,
+            adjustments: {
+              ...layer.adjustments,
+              [filterType]: value
+            }
+          };
+        }
+        return layer;
+      });
+      onLayersUpdate(updatedLayers);
+    }
+    
     applyFilter(filterType, value);
   };
 
   return (
     <div className="space-y-4">
-      <h3 className="text-sm font-semibold">Adjustments</h3>
+      <div>
+        <h3 className="text-sm font-semibold">Adjustments</h3>
+        {activeLayer && (
+          <p className="text-xs text-gray-400 mt-1">
+            For: <span className="text-blue-400">{activeLayer.name}</span>
+          </p>
+        )}
+      </div>
       
       <Separator className="bg-[#3e3e3e]" />
       
