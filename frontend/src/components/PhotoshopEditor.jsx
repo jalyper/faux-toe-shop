@@ -173,6 +173,8 @@ const PhotoshopEditor = () => {
           setBrushSize={setBrushSize}
           brushOpacity={brushOpacity}
           setBrushOpacity={setBrushOpacity}
+          pressureSensitivity={pressureSensitivity}
+          setPressureSensitivity={setPressureSensitivity}
         />
         
         <div className="flex-1 flex flex-col bg-[#2d2d2d]">
