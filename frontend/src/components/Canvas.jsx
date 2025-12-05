@@ -271,21 +271,39 @@ const Canvas = forwardRef(({
     switch (activeTool) {
       case 'brush':
         canvas.isDrawingMode = true;
-        const pressureBrush = new PressureSensitiveBrush(canvas);
-        pressureBrush.color = hexToRgba(color, brushOpacity);
-        pressureBrush.baseWidth = brushSize;
-        pressureBrush.width = brushSize;
-        pressureBrush.simulatePressure = true; // Enable simulation for testing
-        canvas.freeDrawingBrush = pressureBrush;
+        if (pressureSensitivity) {
+          // Use pressure-sensitive brush
+          const pressureBrush = new PressureSensitiveBrush(canvas);
+          pressureBrush.color = hexToRgba(color, brushOpacity);
+          pressureBrush.baseWidth = brushSize;
+          pressureBrush.width = brushSize;
+          pressureBrush.simulatePressure = true; // Enable simulation for testing
+          canvas.freeDrawingBrush = pressureBrush;
+        } else {
+          // Use regular brush with fixed width
+          const regularBrush = new PencilBrush(canvas);
+          regularBrush.color = hexToRgba(color, brushOpacity);
+          regularBrush.width = brushSize;
+          canvas.freeDrawingBrush = regularBrush;
+        }
         break;
       case 'pencil':
         canvas.isDrawingMode = true;
-        const pressurePencil = new PressureSensitiveBrush(canvas);
-        pressurePencil.color = hexToRgba(color, brushOpacity);
-        pressurePencil.baseWidth = brushSize;
-        pressurePencil.width = brushSize;
-        pressurePencil.simulatePressure = true; // Enable simulation for testing
-        canvas.freeDrawingBrush = pressurePencil;
+        if (pressureSensitivity) {
+          // Use pressure-sensitive pencil
+          const pressurePencil = new PressureSensitiveBrush(canvas);
+          pressurePencil.color = hexToRgba(color, brushOpacity);
+          pressurePencil.baseWidth = brushSize;
+          pressurePencil.width = brushSize;
+          pressurePencil.simulatePressure = true; // Enable simulation for testing
+          canvas.freeDrawingBrush = pressurePencil;
+        } else {
+          // Use regular pencil with fixed width
+          const regularPencil = new PencilBrush(canvas);
+          regularPencil.color = hexToRgba(color, brushOpacity);
+          regularPencil.width = brushSize;
+          canvas.freeDrawingBrush = regularPencil;
+        }
         break;
       case 'eraser':
         canvas.isDrawingMode = true;
