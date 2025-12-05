@@ -180,6 +180,7 @@ const PhotoshopEditor = () => {
             brushSize={brushSize}
             color={color}
             zoom={zoom}
+            backgroundColor={backgroundColor}
             layers={layers}
             activeLayerId={activeLayerId}
             onHistoryAdd={addToHistory}
