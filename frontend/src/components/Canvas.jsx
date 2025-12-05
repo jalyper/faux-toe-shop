@@ -7,6 +7,7 @@ const Canvas = forwardRef(({
   brushSize,
   color,
   zoom,
+  backgroundColor,
   layers,
   activeLayerId,
   onHistoryAdd,
