@@ -28,7 +28,7 @@ Faux-Toe-Shop is a canvas-driven raster editor with the layout and behavior peop
 | UI primitives | Radix UI (alert-dialog, dropdown-menu, popover, scroll-area, separator, slider, label, checkbox, toast) styled via Tailwind CSS + class-variance-authority |
 | Icons | lucide-react |
 | Routing | react-router-dom 7 |
-| Build | Create React App + CRACO (for the `@/` path alias) |
+| Build | Vite (with `@/` path alias) |
 | Backend | FastAPI, Motor (async MongoDB), Pydantic |
 
 ## Architecture
@@ -84,37 +84,29 @@ The frontend lives in `frontend/src/components/`:
 
 ## Running locally
 
+The editor itself is a static SPA — the backend is optional and only needed if you want the status-check API up. Most of the time you only need the frontend.
+
 ### Prerequisites
 
 - Node.js 18+
-- Yarn (`npm install -g yarn`)
-- Python 3.11+
-- MongoDB (local install or Docker)
+- npm 9+ (ships with Node 18)
+- (Optional, for the backend) Python 3.11+ and MongoDB
 
-### Setup
+### Frontend (the actual app)
 
 ```bash
 git clone https://github.com/jalyper/faux-toe-shop.git
-cd faux-toe-shop
+cd faux-toe-shop/frontend
+npm install
+npm run dev
 ```
 
-**Frontend:**
+Then open [http://localhost:3000](http://localhost:3000).
+
+### Backend (optional)
 
 ```bash
-cd frontend
-yarn install
-```
-
-Create `frontend/.env`:
-
-```env
-REACT_APP_BACKEND_URL="http://localhost:8001"
-```
-
-**Backend:**
-
-```bash
-cd ../backend
+cd backend
 pip install -r requirements.txt
 ```
 
@@ -126,33 +118,23 @@ DB_NAME="faux_toe_shop"
 CORS_ORIGINS="*"
 ```
 
-**Start MongoDB** (if not already running):
+Start MongoDB if it isn't running:
 
 ```bash
 docker run -d -p 27017:27017 --name faux-toe-mongo mongo:latest
 ```
 
-### Run
-
-Two terminals:
+Then run the API:
 
 ```bash
-# Terminal 1 — backend
-cd backend
 uvicorn server:app --host 0.0.0.0 --port 8001 --reload
-
-# Terminal 2 — frontend
-cd frontend
-yarn start
 ```
-
-Open [http://localhost:3000](http://localhost:3000).
 
 ## Building for production
 
 ```bash
 cd frontend
-yarn build
+npm run build
 ```
 
 The static bundle lands in `frontend/build/`. Serve it with `npx serve -s build` or any static host.
