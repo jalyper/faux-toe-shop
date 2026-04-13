@@ -6,6 +6,20 @@ Faux-Toe-Shop is a canvas-driven raster editor with the layout and behavior peop
 
 (The repo name is a pun on "fauxtoshop," because of course it is.)
 
+## About this project
+
+Faux-Toe-Shop was built as an exploration of multi-tool AI-assisted development. The initial scaffold came out of **Emergent**, an agentic dev platform — that's where the `auto-commit for <uuid>` commit history comes from, which is Emergent's default commit format and not a reflection of the actual editing cadence. I then did a cleanup pass (pruning dependencies, removing dead CRA scaffolding, migrating to Vite, writing this README), moved ongoing development to **Claude Code** (Anthropic's CLI agent, see `.claude/`), and started using **Gemini via Google Antigravity** to drive UI verification tests against the built app.
+
+I want to call this out up front because the commit log alone could be misread. What I own throughout:
+
+- **Product scope and feature prioritization** — deciding what a "good enough fauxtoshop" actually needs
+- **Architecture decisions** — React 19 + Vite shell, Fabric.js 6 for canvas object management, `@erase2d/fabric` for proper destination-out erasing, Radix UI primitives styled via Tailwind, a minimal FastAPI + MongoDB backend for telemetry
+- **Technical direction and review** on every iteration across all three tools — including the cleanup that turned the original Emergent output into something shippable
+- **The hard parts** — the pressure-sensitive brush that falls back gracefully on non-stylus devices, the layer/history state model in `PhotoshopEditor.jsx`, the eraser brush integration
+- **Tool orchestration** — choosing which AI tool fits which layer of the stack (Emergent for breadth and first-pass scaffolding, Claude Code for targeted implementation and refactoring, Gemini/Antigravity for UI test generation and verification)
+
+The point of building it this way was to pressure-test, as a QA engineer whose job is increasingly about evaluating AI-generated code, where each of these tools actually delivers leverage, where they break down, and what the human review loop needs to look like at each layer. I can walk through any file in this repo and explain what it does and why.
+
 ## Features
 
 - **Drawing tools** — pencil, brush, eraser, plus rectangle / circle / text / move primitives
