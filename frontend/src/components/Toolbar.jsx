@@ -1,5 +1,5 @@
 import React from 'react';
-import { MousePointer, Brush, Pencil, Eraser, Type, Square, Circle, Move } from 'lucide-react';
+import { MousePointer, Brush, Pencil, Eraser, Pipette, Type, Square, Circle, Move, Droplets } from 'lucide-react';
 import { Separator } from './ui/separator';
 import { Slider } from './ui/slider';
 import { Label } from './ui/label';
@@ -12,6 +12,8 @@ const Toolbar = ({ activeTool, setActiveTool, brushSize, setBrushSize, brushOpac
     { id: 'brush', icon: Brush, label: 'Brush' },
     { id: 'pencil', icon: Pencil, label: 'Pencil' },
     { id: 'eraser', icon: Eraser, label: 'Eraser' },
+    { id: 'blur', icon: Droplets, label: 'Blur' },
+    { id: 'eyedropper', icon: Pipette, label: 'Eyedropper' },
     { id: 'text', icon: Type, label: 'Text' },
     { id: 'rectangle', icon: Square, label: 'Rectangle' },
     { id: 'circle', icon: Circle, label: 'Circle' },
@@ -35,11 +37,11 @@ const Toolbar = ({ activeTool, setActiveTool, brushSize, setBrushSize, brushOpac
             <tool.icon size={20} />
           </button>
           {index === 1 && <Separator className="w-10 bg-[#3e3e3e]" />}
-          {index === 4 && <Separator className="w-10 bg-[#3e3e3e]" />}
+          {index === 6 && <Separator className="w-10 bg-[#3e3e3e]" />}
         </React.Fragment>
       ))}
       
-      {(activeTool === 'brush' || activeTool === 'pencil' || activeTool === 'eraser') && (
+      {(activeTool === 'brush' || activeTool === 'pencil' || activeTool === 'eraser' || activeTool === 'blur') && (
         <div className="mt-4 px-2 w-full space-y-4">
           <div>
             <Label className="text-xs text-gray-400">Size</Label>

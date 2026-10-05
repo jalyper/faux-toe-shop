@@ -1,0 +1,34 @@
+/* tslint:disable */
+/* eslint-disable */
+export const memory: WebAssembly.Memory;
+export const __wbg_imagebuffer_free: (a: number, b: number) => void;
+export const imagebuffer_blend: (a: number, b: number, c: number, d: number) => void;
+export const imagebuffer_blur: (a: number, b: number) => void;
+export const imagebuffer_brightness: (a: number, b: number) => void;
+export const imagebuffer_contrast: (a: number, b: number) => void;
+export const imagebuffer_empty: (a: number, b: number) => number;
+export const imagebuffer_getLen: (a: number) => number;
+export const imagebuffer_getPtr: (a: number) => number;
+export const imagebuffer_grayscale: (a: number) => void;
+export const imagebuffer_height: (a: number) => number;
+export const imagebuffer_hslToRgb: (a: number, b: number, c: number, d: number) => [number, number];
+export const imagebuffer_invert: (a: number) => void;
+export const imagebuffer_new: (a: number, b: number, c: number, d: number) => [number, number, number];
+export const imagebuffer_rgbToHsl: (a: number, b: number, c: number, d: number) => [number, number];
+export const imagebuffer_saturation: (a: number, b: number) => void;
+export const imagebuffer_sepia: (a: number) => void;
+export const imagebuffer_toUint8Array: (a: number) => [number, number];
+export const imagebuffer_width: (a: number) => number;
+export const processBrightnessInPlace: (a: number, b: number, c: any, d: number) => void;
+export const processContrastInPlace: (a: number, b: number, c: any, d: number) => void;
+export const processGrayscaleInPlace: (a: number, b: number, c: any) => void;
+export const processInvertInPlace: (a: number, b: number, c: any) => void;
+export const processSaturationInPlace: (a: number, b: number, c: any, d: number) => void;
+export const processSepiaInPlace: (a: number, b: number, c: any) => void;
+export const init: () => void;
+export const __wbindgen_free: (a: number, b: number, c: number) => void;
+export const __wbindgen_malloc: (a: number, b: number) => number;
+export const __wbindgen_realloc: (a: number, b: number, c: number, d: number) => number;
+export const __wbindgen_externrefs: WebAssembly.Table;
+export const __externref_table_dealloc: (a: number) => void;
+export const __wbindgen_start: () => void;

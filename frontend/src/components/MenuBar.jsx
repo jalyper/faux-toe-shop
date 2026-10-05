@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { File, Edit, Image as ImageIcon, Layers, Filter, Undo, Redo } from 'lucide-react';
+import { File, Edit, Image as ImageIcon, Layers, Filter, Undo, Redo, Save, FolderOpen } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,7 +9,7 @@ import {
 } from './ui/dropdown-menu';
 import logo from '../assets/faux-toe-shop-logo.png';
 
-const MenuBar = ({ onFileUpload, onExport, onUndo, onRedo, canUndo, canRedo }) => {
+const MenuBar = ({ onFileUpload, onExport, onUndo, onRedo, canUndo, canRedo, onSaveProject, onSaveProjectAs, onOpenProject }) => {
   const fileInputRef = useRef(null);
 
   const handleFileSelect = (e) => {
@@ -33,9 +33,25 @@ const MenuBar = ({ onFileUpload, onExport, onUndo, onRedo, canUndo, canRedo }) =
             File
           </DropdownMenuTrigger>
           <DropdownMenuContent className="bg-[#262626] border-[#3e3e3e]">
+            <DropdownMenuItem onClick={onOpenProject}>
+              <FolderOpen className="mr-2 h-4 w-4" />
+              <span>Open Project</span>
+              <span className="ml-auto text-xs text-gray-400">Ctrl+O</span>
+            </DropdownMenuItem>
             <DropdownMenuItem onClick={() => fileInputRef.current?.click()}>
               <File className="mr-2 h-4 w-4" />
               <span>Open Image</span>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator className="bg-[#3e3e3e]" />
+            <DropdownMenuItem onClick={onSaveProject}>
+              <Save className="mr-2 h-4 w-4" />
+              <span>Save Project</span>
+              <span className="ml-auto text-xs text-gray-400">Ctrl+S</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={onSaveProjectAs}>
+              <Save className="mr-2 h-4 w-4" />
+              <span>Save Project As...</span>
+              <span className="ml-auto text-xs text-gray-400">Ctrl+Shift+S</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator className="bg-[#3e3e3e]" />
             <DropdownMenuItem onClick={() => onExport('png')}>
@@ -60,7 +76,7 @@ const MenuBar = ({ onFileUpload, onExport, onUndo, onRedo, canUndo, canRedo }) =
             <DropdownMenuItem onClick={onRedo} disabled={!canRedo}>
               <Redo className="mr-2 h-4 w-4" />
               <span>Redo</span>
-              <span className="ml-auto text-xs text-gray-400">Ctrl+Shift+Z</span>
+              <span className="ml-auto text-xs text-gray-400">Ctrl+Y</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
